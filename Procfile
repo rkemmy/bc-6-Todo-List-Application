@@ -1,1 +1,1 @@
-web: python todoapp.py
+web: gunicorn todoapp:app
