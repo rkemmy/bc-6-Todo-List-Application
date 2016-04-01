@@ -4,8 +4,7 @@ from datetime import datetime
 import os
 from flask_bootstrap import Bootstrap
 
-APP_DIR = os.path.abspath(os.path.dirname(__file__))
-PROJECT_ROOT = os.path.abspath(os.path.join(APP_DIR, os.pardir))
+PROJECT_ROOT = os.getcwd()
 DB_NAME = 'dev.db'
 DB_PATH = os.path.join(PROJECT_ROOT, DB_NAME)
 SQLALCHEMY_DATABASE_URI = 'sqlite:///{0}'.format(DB_PATH)
@@ -35,7 +34,9 @@ class Todo(db.Model):
 
 @app.route('/')
 def index():
-	return 'home'
+	return render_template('index.html',
+        todos=Todo.query.order_by(Todo.pub_date.desc()).all()
+    )
  
 @app.route('/new', methods=['GET', 'POST'])
 def new():
