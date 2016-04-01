@@ -1,8 +1,8 @@
 {% extends "bootstrap/base.html" %}
 {% block title%} To Do App {%endblock%}
 
-{%block navbar%}
-<div class="navbar navbar-inverse navbar-fixed-top">
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
                 <button type="button" class="btn btn-navbar" data-toggle="collapse"
@@ -21,17 +21,19 @@
             </div>
         </div>
 </div>
- {%endblock%}
+{% endblock %}
 
+{% block content %}
 {%- for category, message in get_flashed_messages(with_categories=true) %}
   <p class="flask {{ category }}-flash">{{
     "Error: " if category == 'error' }}{{ message }}</p>
 {%- endfor %}
 <div id="main" class="container">
-    {% block content %}{% endblock %}
+    {% block body %}{% endblock %}
     <hr>
     <footer id="footer">
                 <p>Todo App built using Flask, SQLAlchemy, PostgreSQL , and Twitter Bootstrap</p>
                 <p><a href="https://www.openshift.com/" target="_blank"><img alt="Powered by OpenShift" src="https://www.openshift.com/sites/default/files/images/powered-transparent-black.png"></a></p>     
     </footer>
 </div>
+{% endblock %}

@@ -47,6 +47,17 @@ def new():
             return redirect(url_for('index'))
     return render_template('new.html')
 
+@app.route('/todos/<int:todo_id>', methods = ['GET' , 'POST'])
+def show_or_update(todo_id):
+    todo_item = Todo.query.get(todo_id)
+    if request.method == 'GET':
+        return render_template('view.html',todo=todo_item)
+    todo_item.title = request.form['title']
+    todo_item.text  = request.form['text']
+    todo_item.done  = ('done.%d' % todo_id) in request.form
+    db.session.commit()
+    return redirect(url_for('index'))
+
 if __name__ == '__main__':
 	app.run()
 
